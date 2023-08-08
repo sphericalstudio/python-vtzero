@@ -82,6 +82,8 @@ cdef extern from 'vtzero/builder.hpp' namespace 'vtzero':
         void set_point(const point p)
         void set_point(const int32_t x, const int32_t y)
         void add_property(char* key, char* value)
+        void add_property(char* key, const int32_t value)
+        void add_property(char* key, const double value)
         void set_id(const uint64_t id)
         void commit()
         void rollback()
@@ -94,6 +96,8 @@ cdef extern from 'vtzero/builder.hpp' namespace 'vtzero':
         void set_point(const point p)
         void set_point(const int32_t x, const int32_t y)
         void add_property(char* key, char* value)
+        void add_property(char* key, const int32_t value)
+        void add_property(char* key, const double value)
         void set_id(const uint64_t id)
         void commit()
         void rollback()
@@ -105,17 +109,18 @@ cdef extern from 'vtzero/builder.hpp' namespace 'vtzero':
         void set_point(const point p)
         void set_point(const int32_t x, const int32_t y)
         void add_property(char* key, char* value)
+        void add_property(char* key, const int32_t value)
+        void add_property(char* key, const double value)
         void set_id(const uint64_t id)
         void commit()
         void rollback()
 
     cdef cppclass tile_builder:
         tile_builder()
-        layer_builder_impl* add_layer(layer& layer)
         layer_builder_impl* add_layer(const char*, uint32_t version, uint32_t extent)
         string serialize()
 
     cdef cppclass layer_builder:
         layer_builder()
-        layer_builder(tile_builder& tile, char* name)
+        layer_builder(tile_builder& tile, char* name, uint32_t version, uint32_t extent)
         void add_feature(const feature& feature)

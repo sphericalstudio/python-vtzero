@@ -117,8 +117,8 @@ cdef class Layer:
 
     cdef cvtzero.layer_builder* builder
 
-    def __cinit__(self, Tile tile, char* name):
-        self.builder = new cvtzero.layer_builder(tile.builder, name)
+    def __cinit__(self, Tile tile, char* name, version=2, extent=4096):
+        self.builder = new cvtzero.layer_builder(tile.builder, name, version, extent)
 
 
 cdef class Point:
@@ -137,8 +137,15 @@ cdef class Point:
     def set_point(self, x, y):
         self.builder.set_point(x, y)
 
-    def add_property(self, char* key, char* value):
+    def add_property(self, char* key, char*value):
         self.builder.add_property(key, value)
+
+    def add_property(self, char* key, float value):
+        self.builder.add_property(key, value)
+
+    def add_property(self, char* key, int value):
+        self.builder.add_property(key, value)
+
 
     def set_id(self, int id):
         self.builder.set_id(id)
@@ -169,6 +176,12 @@ cdef class Polygon:
     def add_property(self, char* key, char* value):
         self.builder.add_property(key, value)
 
+    def add_property(self, char* key, float value):
+        self.builder.add_property(key, value)
+
+    def add_property(self, char* key, int value):
+        self.builder.add_property(key, value)
+
     def set_id(self, int id):
         self.builder.set_id(id)
 
@@ -193,6 +206,12 @@ cdef class Linestring:
         self.builder.set_point(x, y)
 
     def add_property(self, char* key, char* value):
+        self.builder.add_property(key, value)
+
+    def add_property(self, char* key, float value):
+        self.builder.add_property(key, value)
+
+    def add_property(self, char* key, int value):
         self.builder.add_property(key, value)
 
     def set_id(self, int id):
